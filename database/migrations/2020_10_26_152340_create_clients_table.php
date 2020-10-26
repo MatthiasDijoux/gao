@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateOrdinateursTable extends Migration
+class CreateClientsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,9 +14,11 @@ class CreateOrdinateursTable extends Migration
     public function up()
     {
         Schema::enableForeignKeyConstraints();
-        Schema::create('ordinateurs', function (Blueprint $table) {
+
+        Schema::create('clients', function (Blueprint $table) {
             $table->id();
             $table->string('nom');
+            $table->string('prenom');
         });
     }
 
@@ -28,6 +30,6 @@ class CreateOrdinateursTable extends Migration
     public function down()
     {
         Schema::disableForeignKeyConstraints();
-        Schema::dropIfExists('ordinateurs');
+        Schema::dropIfExists('clients');
     }
 }

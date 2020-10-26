@@ -12,4 +12,10 @@ class OrdinateursModel extends Model
     protected $fillable = [
         'nom',
     ];
+    public $timestamps = false;
+
+    public function clients()
+    {
+        return $this->belongsToMany(ClientsModel::class, 'attributions','id_ordinateurs','id_clients')->withPivot('horaire');
+    }
 }

@@ -19,3 +19,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::get('ordinateurs', 'OrdinateursController@index')->middleware('throttle:240,1');
+Route::post('ordinateurs', 'OrdinateursController@add');

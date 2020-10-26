@@ -1919,10 +1919,12 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      ordinateurs: []
+      ordinateurs: [],
+      dialog: false,
+      nomPoste: ''
     };
   },
-  created: function created() {
+  mounted: function mounted() {
     this.initialize();
   },
   methods: {
@@ -1930,10 +1932,20 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       axios__WEBPACK_IMPORTED_MODULE_1___default.a.get('/api/ordinateurs').then(function (response) {
-        console.log(response.data.data);
-        response.data.data.forEach(function (_data) {
+        response.data.forEach(function (_data) {
           _this.ordinateurs.push(_data);
         });
+      });
+    },
+    addPoste: function addPoste() {
+      var _this2 = this;
+
+      axios__WEBPACK_IMPORTED_MODULE_1___default.a.post('/api/ordinateurs', {
+        nom: this.nomPoste
+      }).then(function (response) {
+        _this2.ordinateurs.push(response.data.data);
+      })["catch"](function (err) {
+        console.log(err);
       });
     }
   }
@@ -1953,13 +1965,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['ordinateurs'],
   data: function data() {
-    return {};
+    return {
+      attributions: [{
+        key: '',
+        value: {}
+      }],
+      ordi: []
+    };
   },
   created: function created() {
-    this.retrieveComputers();
+    this.initialize();
   },
   methods: {
-    retrieveComputers: function retrieveComputers() {
+    initialize: function initialize() {
       console.log(this.ordinateurs);
     }
   }
@@ -20274,7 +20292,135 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    [_c("Ordinateurs", { attrs: { ordinateurs: _vm.ordinateurs } })],
+    [
+      _c(
+        "v-dialog",
+        {
+          attrs: { persistent: "", "max-width": "400" },
+          scopedSlots: _vm._u([
+            {
+              key: "activator",
+              fn: function(ref) {
+                var on = ref.on
+                var attrs = ref.attrs
+                return [
+                  _c(
+                    "v-btn",
+                    _vm._g(
+                      _vm._b(
+                        { attrs: { rounded: "", color: "teal", dark: "" } },
+                        "v-btn",
+                        attrs,
+                        false
+                      ),
+                      on
+                    ),
+                    [_c("v-icon", [_vm._v("mdi-plus")])],
+                    1
+                  )
+                ]
+              }
+            }
+          ]),
+          model: {
+            value: _vm.dialog,
+            callback: function($$v) {
+              _vm.dialog = $$v
+            },
+            expression: "dialog"
+          }
+        },
+        [
+          _vm._v(" "),
+          _c(
+            "v-card",
+            [
+              _c("v-card-title", { staticClass: "headline" }, [
+                _vm._v(" Ajouter un poste ")
+              ]),
+              _vm._v(" "),
+              _c(
+                "v-card-text",
+                [
+                  _c(
+                    "v-container",
+                    [
+                      _c(
+                        "v-row",
+                        [
+                          _c(
+                            "v-col",
+                            { attrs: { cols: "12", sm: "12", md: "12" } },
+                            [
+                              _c("v-text-field", {
+                                attrs: { placeholder: "Nom poste" },
+                                model: {
+                                  value: _vm.nomPoste,
+                                  callback: function($$v) {
+                                    _vm.nomPoste = $$v
+                                  },
+                                  expression: "nomPoste"
+                                }
+                              })
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "v-card-actions",
+                [
+                  _c("v-spacer"),
+                  _vm._v(" "),
+                  _c(
+                    "v-btn",
+                    {
+                      attrs: { color: "green darken-1", text: "" },
+                      on: {
+                        click: function($event) {
+                          _vm.dialog = false
+                        }
+                      }
+                    },
+                    [_vm._v("\n          Annuler\n        ")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "v-btn",
+                    {
+                      attrs: {
+                        color: "green darken-1",
+                        disabled: _vm.nomPoste.length < 2,
+                        text: ""
+                      },
+                      on: {
+                        click: function($event) {
+                          ;(_vm.dialog = false), _vm.addPoste()
+                        }
+                      }
+                    },
+                    [_vm._v("\n          Ajouter\n        ")]
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c("Ordinateurs", { attrs: { ordinateurs: _vm.ordinateurs } })
+    ],
     1
   )
 }
@@ -20301,41 +20447,35 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c(
-    "v-row",
-    _vm._l(_vm.ordinateurs, function(ordinateur) {
-      return _c(
-        "v-col",
-        { key: ordinateur.id, attrs: { col: "4" } },
-        [
-          _c(
-            "v-card",
-            {
-              staticClass: "mx-auto",
-              attrs: { "max-width": "344", "max-height": "600" }
-            },
+    "v-container",
+    [
+      _c(
+        "v-row",
+        _vm._l(_vm.ordinateurs, function(ordinateur) {
+          return _c(
+            "v-col",
+            { key: ordinateur.id, attrs: { col: "2" } },
             [
-              _c("v-card-title", [_vm._v(" " + _vm._s(ordinateur.nom) + " ")]),
-              _vm._v(" "),
               _c(
-                "v-card-actions",
+                "v-card",
+                {
+                  staticClass: "mx-auto",
+                  attrs: { "max-width": "344", "max-height": "600" }
+                },
                 [
-                  _c(
-                    "v-btn",
-                    { attrs: { color: "orange lighten-2", text: "" } },
-                    [_vm._v(" Explore ")]
-                  ),
-                  _vm._v(" "),
-                  _c("v-spacer")
+                  _c("v-card-title", [
+                    _vm._v(" " + _vm._s(ordinateur.nom) + " ")
+                  ])
                 ],
                 1
               )
             ],
             1
           )
-        ],
+        }),
         1
       )
-    }),
+    ],
     1
   )
 }

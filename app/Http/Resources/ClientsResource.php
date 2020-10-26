@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class OrdinateursResource extends JsonResource
+class ClientsResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -17,9 +17,7 @@ class OrdinateursResource extends JsonResource
         return [
             'id' => $this->id,
             'nom' => $this->nom,
-            'clients' => $this->whenPivotLoaded('attributions', function () {
-                return $this->pivot;
-            }),
+            'prenom' => $this->nom,
         ];
     }
 }

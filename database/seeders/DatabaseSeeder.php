@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\ClientsModel;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -14,6 +15,8 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call([OrdinateurSeeder::class]);
+        $this->call([ClientsSeeder::class]);
+        $this->call([AttributionsSeeder::class]);
 
     }
 }

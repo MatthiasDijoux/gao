@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class OrdinateursResource extends JsonResource
+class AttributionsResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -14,12 +14,10 @@ class OrdinateursResource extends JsonResource
      */
     public function toArray($request)
     {
+
         return [
             'id' => $this->id,
-            'nom' => $this->nom,
-            'clients' => $this->whenPivotLoaded('attributions', function () {
-                return $this->pivot;
-            }),
+            'horaire' => $this->horaire,
         ];
     }
 }

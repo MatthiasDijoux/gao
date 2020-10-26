@@ -3,14 +3,20 @@ export default {
     props: ['ordinateurs'],
     data() {
         return {
-
+            attributions: [
+                {
+                    key: '',
+                    value: {}
+                }
+            ],
+            ordi:[]
         }
     },
     created() {
-        this.retrieveComputers()
+        this.initialize()
     },
     methods: {
-        retrieveComputers(){
+        initialize() {
             console.log(this.ordinateurs)
         }
     }

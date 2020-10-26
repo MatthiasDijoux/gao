@@ -8,18 +8,28 @@ export default {
     data() {
         return {
             ordinateurs: [],
+            dialog: false,
+            nomPoste: '',
         }
     },
-    created() {
+    mounted() {
         this.initialize()
     },
     methods: {
         initialize() {
             Axios.get('/api/ordinateurs').then(response => {
-                console.log(response.data.data)
-                response.data.data.forEach(_data=>{
+                response.data.forEach(_data => {
                     this.ordinateurs.push(_data)
                 })
+            })
+        },
+        addPoste() {
+            Axios.post('/api/ordinateurs', {
+                nom: this.nomPoste
+            }).then(response => {
+                this.ordinateurs.push(response.data.data)
+            }).catch(err => {
+                console.log(err)
             })
         }
     }
