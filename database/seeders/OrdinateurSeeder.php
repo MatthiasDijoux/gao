@@ -14,6 +14,8 @@ class OrdinateurSeeder extends Seeder
      */
     public function run()
     {
+
+        
         $array = [
             [
                 'id' => 1,
