@@ -1,5 +1,6 @@
 import addAttribution from './addAttribution.vue';
 import deleteAttribution from './deleteAttribution.vue';
+import deleteOrdinateur from './deleteOrdinateur.vue';
 export default {
     props: {
         ordinateur: {
@@ -11,7 +12,8 @@ export default {
     },
     components: {
         addAttribution,
-        deleteAttribution
+        deleteAttribution,
+        deleteOrdinateur
     },
     watch: {
         ordinateur: function () {
@@ -64,9 +66,8 @@ export default {
             this.initialize();
         },
         deleteAttribution(horaire) {
-            _.unset(this.attributions, horaire[0])
-            this.attributions.push({ horaire: horaire.horaire, nom: horaire.client.nom, prenom: horaire.client.prenom, id: horaire.id })
-            this.initialize();
-        }
+            _.unset(this.attributions, horaire)
+            this.displayHoraire();
+        },
     }
 }

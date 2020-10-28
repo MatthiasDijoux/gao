@@ -1,6 +1,9 @@
 <template>
   <v-card class="mx-auto" width="500">
-    <v-card-title>{{ ordinateur.nom }} </v-card-title>
+    <v-card-title
+      >{{ ordinateur.nom }}
+      <deleteOrdinateur :ordinateur="ordinateur"
+    /></v-card-title>
     <v-card-text>
       <v-list-item three-line>
         <v-list-item-content>
@@ -16,11 +19,10 @@
                 >{{ horaires.attribution.prenom }}
                 {{ horaires.attribution.nom }}</v-col
               >
-              <v-col md="">
+              <v-col md="1">
                 <addAttribution
-                  v-if="!horaire.attribution"
+                  v-if="!horaires.attribution"
                   :horaire="horaires.index"
-                  @addAttribution="addAttribution"
                   :ordinateur="ordinateur"
                   :date="date"
                   @attrib="updateAttrib($event, i)"
@@ -28,9 +30,10 @@
               </v-col>
               <v-col md="1">
                 <deleteAttribution
-                  v-if="horaires.id"
-                  :attribution="horaires.id"
-                  :horaire="horaires"
+                  v-if="horaires.attribution"
+                  :ordinateur="ordinateur"
+                  :attribution="horaires.attribution"
+                  :horaire="horaires.index"
                   @deleteAttribution="deleteAttribution"
                 />
               </v-col>

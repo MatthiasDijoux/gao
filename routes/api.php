@@ -20,7 +20,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::prefix('ordinateurs')->group(function () {
     Route::get('/', 'OrdinateursController@index');
-    Route::delete('/{id}', 'OrdinateursController@delete');
+    Route::post('/{id}', 'OrdinateursController@delete');
     Route::post('/', 'OrdinateursController@add');
 });
 

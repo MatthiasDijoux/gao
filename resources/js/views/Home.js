@@ -2,6 +2,7 @@ import Ordinateurs from './components/Ordinateurs.vue';
 import Datepicker from './components/Datepicker.vue';
 import AddPoste from './components/addPoste.vue';
 import Axios from "axios"
+import { eventBus } from '../eventBus';
 
 export default {
     components: {
@@ -19,14 +20,23 @@ export default {
     },
     created() {
         this.initialize()
+
     },
     methods: {
         initialize() {
             this.requestGet(this.date)
+            eventBus.$on('ordiSupp', data => {
+                _.unset(this.ordinateurs, data)
+                this.requestGet(this.date)
+            })
         },
         selectDate(ordinateurs) {
             this.requestGet(ordinateurs)
             this.date = ordinateurs
+            eventBus.$on('ordiSupp', data => {
+                _.unset(this.ordinateurs, data)
+                this.requestGet(ordinateurs)
+            })
         },
         requestGet(date) {
             this.ordinateurs = []
@@ -36,6 +46,7 @@ export default {
                     this.ordinateurs.push(_data)
                 })
             })
+
         }
     }
 }

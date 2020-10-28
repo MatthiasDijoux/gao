@@ -7,15 +7,17 @@
         </v-btn>
       </template>
       <v-card>
-        <v-card-title class="headline">
-          Suprimmer cet attribution ?
-        </v-card-title>
+        <v-card-title class="headline"> Suprimmer ce poste ? </v-card-title>
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn color="red darken-1" icon @click="dialog = false">
             <v-icon> mdi-cancel </v-icon>
           </v-btn>
-          <v-btn color="teal darken-1" icon  @click="(dialog = false), deletePoste()">
+          <v-btn
+            color="teal darken-1"
+            icon
+            @click="(dialog = false), deletePoste()"
+          >
             <v-icon> mdi-check </v-icon>
           </v-btn>
         </v-card-actions>
@@ -23,4 +25,4 @@
     </v-dialog>
   </v-row>
 </template>
-<script src="./deleteAttribution.js"/>
+<script src="./deleteOrdinateur.js"/>

@@ -17,6 +17,7 @@ class CreateOrdinateursTable extends Migration
         Schema::create('ordinateurs', function (Blueprint $table) {
             $table->id();
             $table->string('nom');
+            $table->softDeletes();
         });
     }
 
