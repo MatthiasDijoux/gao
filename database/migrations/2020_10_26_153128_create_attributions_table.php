@@ -17,10 +17,10 @@ class CreateAttributionsTable extends Migration
         Schema::create('attributions', function (Blueprint $table) {
             $table->id();
             $table->integer('horaire');
-            $table->bigInteger('id_ordinateurs')->unsigned();
-            $table->bigInteger('id_clients')->unsigned();
-            $table->foreign('id_ordinateurs')->references('id')->on('ordinateurs');
-            $table->foreign('id_clients')->references('id')->on('clients');
+            $table->bigInteger('id_ordinateurs')->unsigned()->nullable();
+            $table->bigInteger('id_clients')->unsigned()->nullable();
+            $table->foreign('id_ordinateurs')->references('id')->on('ordinateurs')->onDelete ('cascade');
+            $table->foreign('id_clients')->references('id')->on('clients')->onDelete ('cascade');
         });
     }
 

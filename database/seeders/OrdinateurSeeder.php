@@ -16,23 +16,18 @@ class OrdinateurSeeder extends Seeder
     {
         $array = [
             [
-                'id' => 1,
                 'nom' => 'ordinateur 1',
             ],
             [
-                'id' => 2,
                 'nom' => 'ordinateur 2',
             ],
             [
-                'id' => 3,
                 'nom' => 'ordinateur 3',
             ],
             [
-                'id' => 4,
                 'nom' => 'ordinateur 4',
             ],
             [
-                'id' => 5,
                 'nom' => 'ordinateur 5',
             ]
         ];

@@ -16,27 +16,22 @@ class ClientsSeeder extends Seeder
     {
         $array = [
             [
-                'id' => 1,
                 'nom' => 'Cage',
                 'prenom' => 'Denis'
             ],
             [
-                'id' => 2,
                 'nom' => 'Golaux',
                 'prenom' => 'Henry'
             ],
             [
-                'id' => 3,
                 'nom' => 'Thé',
                 'prenom' => 'Pierrot'
             ],
             [
-                'id' => 4,
                 'nom' => 'Cement',
                 'prenom' => 'Mamadou'
             ],
             [
-                'id' => 5,
                 'nom' => 'Pette',
                 'prenom' => 'Bertrand'
             ]

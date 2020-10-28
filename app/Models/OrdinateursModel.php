@@ -14,8 +14,8 @@ class OrdinateursModel extends Model
     ];
     public $timestamps = false;
 
-    public function clients()
+    public function attributions()
     {
-        return $this->belongsToMany(ClientsModel::class, 'attributions','id_ordinateurs','id_clients')->withPivot('horaire');
+        return $this->hasMany(AttributionsModel::class, 'id_ordinateurs');
     }
 }

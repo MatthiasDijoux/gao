@@ -18,5 +18,17 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('ordinateurs', 'OrdinateursController@index')->middleware('throttle:240,1');
-Route::post('ordinateurs', 'OrdinateursController@add');
+Route::prefix('ordinateurs')->group(function () {
+    Route::get('/', 'OrdinateursController@index');
+    Route::delete('/{id}', 'OrdinateursController@delete');
+    Route::post('/', 'OrdinateursController@add');
+});
+
+Route::prefix('attributions')->group(function () {
+    Route::post('/{id}', 'AttributionsController@delete');
+    Route::post('/', 'AttributionsController@assign');
+});
+
+Route::prefix('clients')->group(function () {
+    Route::get('/search', 'ClientsController@search');
+});
