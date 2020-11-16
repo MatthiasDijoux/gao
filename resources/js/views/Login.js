@@ -4,7 +4,7 @@ export default {
     data() {
         return {
             user: {
-                mail: '',
+                email: '',
                 password: ''
             },
             emailRules: [

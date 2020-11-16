@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class AttributionsModel extends Model
 {
     use HasFactory;
-    use HasFactory;
     protected $table = "attributions";
     protected $fillable = [
         'horaire', 'date'

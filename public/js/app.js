@@ -1930,47 +1930,47 @@ __webpack_require__.r(__webpack_exports__);
       ordinateurs: [],
       dialog: false,
       nomPoste: '',
-      date: new Date().toISOString().substr(0, 10)
+      date: new Date().toISOString().substr(0, 10),
+      pagination: {
+        page: 1,
+        visible: 3,
+        pageCount: 0
+      }
     };
   },
   created: function created() {
+    var _this = this;
+
     this.initialize();
+    _eventBus__WEBPACK_IMPORTED_MODULE_4__["eventBus"].$on('ordiSupp', function (data) {
+      var index = _this.ordinateurs.indexOf(data);
+
+      _this.ordinateurs.splice(index, 1);
+    });
   },
   methods: {
     initialize: function initialize() {
-      var _this = this;
-
-      this.requestGet(this.date);
-      _eventBus__WEBPACK_IMPORTED_MODULE_4__["eventBus"].$on('ordiSupp', function (data) {
-        _.unset(_this.ordinateurs, data);
-
-        _this.requestGet(_this.date);
-      });
+      this.requestGet(1);
     },
     selectDate: function selectDate(ordinateurs) {
+      this.requestGet(1);
+      this.date = ordinateurs;
+    },
+    requestGet: function requestGet(page) {
       var _this2 = this;
 
-      this.requestGet(ordinateurs);
-      this.date = ordinateurs;
-      _eventBus__WEBPACK_IMPORTED_MODULE_4__["eventBus"].$on('ordiSupp', function (data) {
-        _.unset(_this2.ordinateurs, data);
-
-        _this2.requestGet(ordinateurs);
-      });
-    },
-    requestGet: function requestGet(date) {
-      var _this3 = this;
-
-      this.ordinateurs = []; //TODO changer post en get
-
+      this.ordinateurs = [];
       axios__WEBPACK_IMPORTED_MODULE_3___default.a.get('/api/ordinateurs', {
         params: {
-          date: date
+          date: this.date,
+          page: page
         }
-      }).then(function (response) {
-        response.data.data.forEach(function (_data) {
-          _this3.ordinateurs.push(_data);
+      }).then(function (_ref) {
+        var data = _ref.data;
+        data.data.forEach(function (_data) {
+          _this2.ordinateurs.push(_data);
         });
+        _this2.pagination.pageCount = data.meta.last_page;
       });
     }
   }
@@ -1994,7 +1994,7 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       user: {
-        mail: '',
+        email: '',
         password: ''
       },
       emailRules: [function (v) {
@@ -2102,17 +2102,6 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      headers: [{
-        text: 'Heure',
-        align: 'start',
-        value: 'horaire'
-      }, {
-        text: 'Prenom',
-        value: 'prenom'
-      }, {
-        text: 'Nom',
-        value: 'nom'
-      }],
       attributions: {},
       horaire: []
     };
@@ -26963,27 +26952,37 @@ var render = function() {
       ),
       _vm._v(" "),
       _c(
-        "v-container",
-        [
-          _c(
-            "v-row",
-            _vm._l(_vm.ordinateurs, function(ordinateur) {
-              return _c(
-                "v-col",
-                { key: ordinateur.horaire, attrs: { col: "2" } },
-                [
-                  _c("Ordinateurs", {
-                    attrs: { ordinateur: ordinateur, date: _vm.date }
-                  })
-                ],
-                1
-              )
-            }),
+        "v-row",
+        _vm._l(_vm.ordinateurs, function(ordinateur) {
+          return _c(
+            "v-col",
+            { key: ordinateur.horaire, attrs: { md: "4" } },
+            [
+              _c("Ordinateurs", {
+                attrs: { ordinateur: ordinateur, date: _vm.date }
+              })
+            ],
             1
           )
-        ],
+        }),
         1
-      )
+      ),
+      _vm._v(" "),
+      _c("v-pagination", {
+        attrs: {
+          length: _vm.pagination.pageCount,
+          color: "teal lighten-2",
+          circle: ""
+        },
+        on: { input: _vm.requestGet },
+        model: {
+          value: _vm.pagination.page,
+          callback: function($$v) {
+            _vm.$set(_vm.pagination, "page", $$v)
+          },
+          expression: "pagination.page"
+        }
+      })
     ],
     1
   )
@@ -27066,11 +27065,11 @@ var render = function() {
                                   type: "text"
                                 },
                                 model: {
-                                  value: _vm.user.mail,
+                                  value: _vm.user.email,
                                   callback: function($$v) {
-                                    _vm.$set(_vm.user, "mail", $$v)
+                                    _vm.$set(_vm.user, "email", $$v)
                                   },
-                                  expression: "user.mail"
+                                  expression: "user.email"
                                 }
                               }),
                               _vm._v(" "),
@@ -87063,8 +87062,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.esm.js");
 /* harmony import */ var _views_Home_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./views/Home.vue */ "./resources/js/views/Home.vue");
-/* harmony import */ var _views_helpers_role__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./views/_helpers/role */ "./resources/js/views/_helpers/role.js");
-/* harmony import */ var _views_services_authentication_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./views/_services/authentication.service */ "./resources/js/views/_services/authentication.service.js");
+/* harmony import */ var _views_services_authentication_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./views/_services/authentication.service */ "./resources/js/views/_services/authentication.service.js");
+/* harmony import */ var _views_helpers_role__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./views/_helpers/role */ "./resources/js/views/_helpers/role.js");
 /* harmony import */ var _views_Login_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./views/Login.vue */ "./resources/js/views/Login.vue");
 
 
@@ -87080,15 +87079,12 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
     name: 'home',
     component: _views_Home_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
     meta: {
-      authorize: [_views_helpers_role__WEBPACK_IMPORTED_MODULE_3__["Role"].Admin]
+      authorize: [_views_helpers_role__WEBPACK_IMPORTED_MODULE_4__["Role"].Admin]
     }
   }, {
     path: '/login',
     name: 'login',
-    component: _views_Login_vue__WEBPACK_IMPORTED_MODULE_5__["default"],
-    meta: {
-      authorize: []
-    }
+    component: _views_Login_vue__WEBPACK_IMPORTED_MODULE_5__["default"]
   }]
 });
 router.beforeEach(function (to, from, next) {
@@ -87096,7 +87092,7 @@ router.beforeEach(function (to, from, next) {
   var authorize = to.meta.authorize;
 
   if (authorize && !_.isEmpty(authorize)) {
-    var currentUser = _views_services_authentication_service__WEBPACK_IMPORTED_MODULE_4__["authenticationService"].currentUserValue;
+    var currentUser = _views_services_authentication_service__WEBPACK_IMPORTED_MODULE_3__["authenticationService"].currentUserValue;
 
     if (!currentUser) {
       // not logged in so redirect to login page with the return url
@@ -87109,7 +87105,7 @@ router.beforeEach(function (to, from, next) {
     } // check if route is restricted by role
 
 
-    if (authorize.length && !authorize.includes(currentUser.role.name)) {
+    if (authorize.length && !authorize.includes(currentUser.email)) {
       // role not authorised so redirect to home page
       return next({
         path: "/"
@@ -87510,7 +87506,7 @@ function headers() {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Role", function() { return Role; });
 var Role = {
-  Admin: 'Admin'
+  Admin: 'admin@admin.com'
 };
 
 /***/ }),

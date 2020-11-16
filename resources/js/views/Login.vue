@@ -12,7 +12,7 @@
               <v-form ref="form" v-model="valid" :lazy-validation="lazy">
                 <v-text-field
                   label="Email de connexion"
-                  v-model="user.mail"
+                  v-model="user.email"
                   name="login"
                   :rules="emailRules"
                   prepend-icon="mdi-account"

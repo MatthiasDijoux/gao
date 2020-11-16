@@ -32,3 +32,5 @@ Route::prefix('attributions')->group(function () {
 Route::prefix('clients')->group(function () {
     Route::get('/search', 'ClientsController@search');
 });
+
+Route::post('/login', 'AuthController@login');

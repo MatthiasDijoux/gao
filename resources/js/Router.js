@@ -1,8 +1,8 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Home from './views/Home.vue';
-import { Role } from './views/_helpers/role';
 import { authenticationService } from './views/_services/authentication.service';
+import {Role} from './views/_helpers/role'
 import Login from './views/Login.vue';
 Vue.use(VueRouter);
 
@@ -19,7 +19,6 @@ const router = new VueRouter({
             path: '/login',
             name: 'login',
             component: Login,
-            meta: { authorize: [] }
 
         },
 
@@ -41,7 +40,7 @@ router.beforeEach((to, from, next) => {
         }
 
         // check if route is restricted by role
-        if (authorize.length && !authorize.includes(currentUser.role.name)) {
+        if (authorize.length && !authorize.includes(currentUser.email)) {
             // role not authorised so redirect to home page
             return next({ path: "/" });
         }

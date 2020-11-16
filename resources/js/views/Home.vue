@@ -9,17 +9,22 @@
       </v-col>
     </v-row>
 
-    <v-container>
       <v-row>
         <v-col
-          col="2"
+          md="4"
           v-for="ordinateur in ordinateurs"
           :key="ordinateur.horaire"
         >
           <Ordinateurs :ordinateur="ordinateur" :date="date" />
         </v-col>
       </v-row>
-    </v-container>
+    <v-pagination
+      :length="pagination.pageCount"
+      color="teal lighten-2"
+      v-model="pagination.page"
+      @input="requestGet"
+      circle
+    ></v-pagination>
   </div>
 </template>
 <script src="./Home.js" />

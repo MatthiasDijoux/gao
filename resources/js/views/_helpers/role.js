@@ -1,3 +1,3 @@
 export const Role = {
-    Admin: 'Admin',
+    Admin: 'admin@admin.com',
 }

@@ -16,37 +16,38 @@ export default {
             dialog: false,
             nomPoste: '',
             date: new Date().toISOString().substr(0, 10),
+            pagination: {
+                page: 1,
+                visible: 3,
+                pageCount: 0,
+            },
         }
     },
     created() {
         this.initialize()
-
+        eventBus.$on('ordiSupp', data => {
+            const index = this.ordinateurs.indexOf(data);
+            this.ordinateurs.splice(index, 1)
+        })
     },
     methods: {
         initialize() {
-            this.requestGet(this.date)
-            eventBus.$on('ordiSupp', data => {
-                _.unset(this.ordinateurs, data)
-                this.requestGet(this.date)
-            })
+            this.requestGet(1)
         },
         selectDate(ordinateurs) {
-            this.requestGet(ordinateurs)
+            this.requestGet(1)
             this.date = ordinateurs
-            eventBus.$on('ordiSupp', data => {
-                _.unset(this.ordinateurs, data)
-                this.requestGet(ordinateurs)
-            })
+
         },
-        requestGet(date) {
+        requestGet(page) {
             this.ordinateurs = []
-            //TODO changer post en get
-            Axios.get('/api/ordinateurs', { params: { date: date } }).then(response => {
-                response.data.data.forEach(_data => {
+            Axios.get('/api/ordinateurs', { params: { date: this.date, page: page } }).then(({ data }) => {
+
+                data.data.forEach(_data => {
                     this.ordinateurs.push(_data)
                 })
+                this.pagination.pageCount = data.meta.last_page
             })
-
-        }
+        },
     }
 }

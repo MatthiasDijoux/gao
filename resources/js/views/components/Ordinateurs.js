@@ -22,15 +22,6 @@ export default {
     },
     data() {
         return {
-            headers: [
-                {
-                    text: 'Heure',
-                    align: 'start',
-                    value: 'horaire',
-                },
-                { text: 'Prenom', value: 'prenom' },
-                { text: 'Nom', value: 'nom' },
-            ],
             attributions: {},
             horaire: []
         }

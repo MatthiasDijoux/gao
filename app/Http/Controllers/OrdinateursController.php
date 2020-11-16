@@ -2,11 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\AttributionsResource;
-use App\Http\Resources\ClientsResource;
 use App\Http\Resources\OrdinateursResource;
-use App\Models\AttributionsModel;
-use App\Models\ClientsModel;
 use App\Models\OrdinateursModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -21,7 +17,7 @@ class OrdinateursController extends Controller
         $data = OrdinateursModel::with(['attributions' => function ($q) use ($date) {
             $q->where('date', $date['date'])
                 ->with(['client']);
-        }])->get();
+        }])->paginate(3);
         return OrdinateursResource::collection($data);
     }
     function add(Request $request)

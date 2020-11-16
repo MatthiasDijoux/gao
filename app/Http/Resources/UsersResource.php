@@ -32,9 +32,8 @@ class UsersResource extends JsonResource
 
             return [
                 'id' => $this->id,
-                'name' => $this->username,
-                'email' => $this->mail,
-                'role' => $role,
+                'email' => $this->email,
+                'password' => $this->password,
                 'token' => $this->token,
             ];
         } else {
