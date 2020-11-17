@@ -30,11 +30,11 @@ services:
 
   node:
     build:
-      context: .docker/node
+      context: ./.docker/node
     container_name: gao-node
     tty: true
     volumes: 
-      - .:/home/node/app/frontend
+      - .:/home/node/app
 
   db:
     image: mysql:5.7
